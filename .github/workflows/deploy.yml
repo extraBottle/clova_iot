@@ -53,7 +53,11 @@ jobs:
                 - name: SUB_INBOX
                   value: ${{ secrets.SUB_INBOX }}
                 - name: SUB_PUSH
-                  value: ${{ secrets.SUB_PUSH }}                  
+                  value: ${{ secrets.SUB_PUSH }}
+                - name: SERVER_PORT
+                  value: 1999
+                - name: DOMAIN
+                  value: ${{ secrets.DOMAIN }}                  
               buildenv: []
             context:
               git:
