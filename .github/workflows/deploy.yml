@@ -1,0 +1,61 @@
+name: Deploy to cloudtype
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: extra_bottle/my-project
+          stage: main
+          yaml: |
+            name: clova-iot
+            app: node@23
+            options:
+              ports: "1999"
+              install: npm ci
+              start: node app.js
+              env:
+                - name: BTC_MSG
+                  value: ${{ secrets.BTC_MSG }}
+                - name: CA
+                  value: ${{ secrets.CA }}
+                - name: CERT
+                  value: ${{ secrets.CERT }}
+                - name: CLIENT_ID
+                  value: ${{ secrets.CLIENT_ID }}
+                - name: CLOVA_ID
+                  value: ${{ secrets.CLOVA_ID }}
+                - name: CLOVA_SECRET
+                  value: ${{ secrets.CLOVA_SECRET }}
+                - name: DRY_MSG
+                  value: ${{ secrets.DRY_MSG }}
+                - name: KEY
+                  value: ${{ secrets.KEY }}
+                - name: LAUNDRY_MSG
+                  value: ${{ secrets.LAUNDRY_MSG }}
+                - name: MQTT_HOST
+                  value: ${{ secrets.MQTT_HOST }}
+                - name: SUB_INBOX
+                  value: ${{ secrets.SUB_INBOX }}
+                - name: SUB_PUSH
+                  value: ${{ secrets.SUB_PUSH }}                  
+              buildenv: []
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
