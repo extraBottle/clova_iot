@@ -12,7 +12,7 @@ const MQTT_HOST = 'a3phael99lf879-ats.iot.ap-northeast-2.amazonaws.com';
 const TOPIC_TO_PUSH = process.env.SUB_PUSH;
 const TOPIC_TO_INBOX = process.env.SUB_INBOX;
 
-// mqtt 접속 로직 export
+// mqtt 접속
 function connect() {
   // --- 2. MQTT 연결 옵션 설정 ---
   const options = {
