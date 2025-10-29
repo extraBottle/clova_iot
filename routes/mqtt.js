@@ -6,7 +6,7 @@ require('dotenv').config();
 // --- 1. 접속 정보 설정 ---
 
 // ❗️ API 응답에서 받은 'endpointAddress'
-const MQTT_HOST = process.env.MQTT_HOST; 
+const MQTT_HOST = 'a3phael99lf879-ats.iot.ap-northeast-2.amazonaws.com'; 
 
 // ❗️ API 응답에서 받은 'subscriptions'
 const TOPIC_TO_PUSH = process.env.SUB_PUSH;
