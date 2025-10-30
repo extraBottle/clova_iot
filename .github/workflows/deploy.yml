@@ -28,18 +28,10 @@ jobs:
             options:
               ports: "1999"
               install: npm ci              
-              start: |
-                cat > ./my-client.key <<EOF
-                ${{ secrets.KEY }}
-                EOF
-                
-                cat > ./lg-client.crt <<EOF
-                ${{ secrets.CERT }}
-                EOF
-                
-                cat > ./AmazonRootCA1.pem <<EOF
-                ${{ secrets.CA }}
-                EOF
+              start: |                
+                echo "${{ secrets.KEY }}" > ./my-client.key
+                echo "${{ secrets.CERT }}" > ./lg-client.crt
+                echo "${{ secrets.CA }}" > ./AmazonRootCA1.pem
                 
                 node app.js
               env:
