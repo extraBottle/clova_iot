@@ -28,9 +28,9 @@ jobs:
             options:
               ports: "1999"
               install: |
-                npm ci
-                echo "${{ secrets.KEY }}" > ./my-client.key
-                echo "${{ secrets.CERT }}" > ./lg-client.csr
+                npm ci && \
+                echo "${{ secrets.KEY }}" > ./my-client.key && \
+                echo "${{ secrets.CERT }}" > ./lg-client.csr && \
                 echo "${{ secrets.CA }}" > ./AmazonRootCA1.pem
               start: node app.js
               env:
