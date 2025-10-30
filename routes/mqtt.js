@@ -22,7 +22,7 @@ function connect() {
     
     // 3개의 인증 파일
     key: fs.readFileSync('./my-client.key'),
-    cert: fs.readFileSync('./lg-client.csr'),
+    cert: fs.readFileSync('./lg-client.crt'),
     ca: fs.readFileSync('./AmazonRootCA1.pem'),
   };
 

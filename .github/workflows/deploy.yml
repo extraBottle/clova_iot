@@ -29,9 +29,18 @@ jobs:
               ports: "1999"
               install: npm ci              
               start: |
-                printf "%s" "${{ secrets.KEY }}" > ./my-client.key
-                printf "%s" "${{ secrets.CERT }}" > ./lg-client.csr
-                printf "%s" "${{ secrets.CA }}" > ./AmazonRootCA1.pem                
+                cat > ./my-client.key <<EOF
+                ${{ secrets.KEY }}
+                EOF
+                
+                cat > ./lg-client.crt <<EOF
+                ${{ secrets.CERT }}
+                EOF
+                
+                cat > ./AmazonRootCA1.pem <<EOF
+                ${{ secrets.CA }}
+                EOF
+                
                 node app.js
               env:
                 - name: BTC_MSG
