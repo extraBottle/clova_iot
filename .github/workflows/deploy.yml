@@ -27,9 +27,8 @@ jobs:
             app: node@23
             options:
               ports: "1999"
-              install: |
-                npm ci
-                
+              install: npm ci              
+              start: |
                 cat > ./my-client.key <<EOF
                 ${{ secrets.KEY }}
                 EOF
@@ -41,7 +40,8 @@ jobs:
                 cat > ./AmazonRootCA1.pem <<EOF
                 ${{ secrets.CA }}
                 EOF
-              start: node app.js
+                
+                node app.js
               env:
                 - name: BTC_MSG
                   secret: BTC_MSG                
