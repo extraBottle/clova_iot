@@ -31,33 +31,33 @@ jobs:
               start: node app.js
               env:
                 - name: BTC_MSG
-                  value: ${{ secrets.BTC_MSG }}
+                  secret: BTC_MSG
                 - name: CA
-                  value: ${{ secrets.CA }}
+                  secret: CA
                 - name: CERT
-                  value: ${{ secrets.CERT }}
+                  secret: CERT
                 - name: CLIENT_ID
-                  value: ${{ secrets.CLIENT_ID }}
+                  secret: CLIENT_ID
                 - name: CLOVA_ID
-                  value: ${{ secrets.CLOVA_ID }}
+                  secret: CLOVA_ID
                 - name: CLOVA_SECRET
-                  value: ${{ secrets.CLOVA_SECRET }}
+                  secret: CLOVA_SECRET
                 - name: DRY_MSG
-                  value: ${{ secrets.DRY_MSG }}
+                  secret: DRY_MSG
                 - name: KEY
-                  value: ${{ secrets.KEY }}
+                  secret: KEY
                 - name: LAUNDRY_MSG
-                  value: ${{ secrets.LAUNDRY_MSG }}
+                  secret: LAUNDRY_MSG
                 - name: MQTT_HOST
-                  value: ${{ secrets.MQTT_HOST }}
+                  secret: MQTT_HOST
                 - name: SUB_INBOX
-                  value: ${{ secrets.SUB_INBOX }}
+                  secret: SUB_INBOX
                 - name: SUB_PUSH
-                  value: ${{ secrets.SUB_PUSH }}
+                  secret: SUB_PUSH
                 - name: SERVER_PORT
-                  value: 1999
+                  secret: SERVER_PORT
                 - name: DOMAIN
-                  value: ${{ secrets.DOMAIN }}                  
+                  secret: DOMAIN
               buildenv: []
             context:
               git:
