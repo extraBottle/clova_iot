@@ -27,15 +27,15 @@ jobs:
             app: node@23
             options:
               ports: "1999"
-              install: npm ci
+              install: |
+                npm ci
+                echo "${{ secrets.KEY }}" > ./my-client.key
+                echo "${{ secrets.CERT }}" > ./lg-client.csr
+                echo "${{ secrets.CA }}" > ./AmazonRootCA1.pem
               start: node app.js
               env:
                 - name: BTC_MSG
-                  secret: BTC_MSG
-                - name: CA
-                  secret: CA
-                - name: CERT
-                  secret: CERT
+                  secret: BTC_MSG                
                 - name: CLIENT_ID
                   secret: CLIENT_ID
                 - name: CLOVA_ID
@@ -43,9 +43,7 @@ jobs:
                 - name: CLOVA_SECRET
                   secret: CLOVA_SECRET
                 - name: DRY_MSG
-                  secret: DRY_MSG
-                - name: KEY
-                  secret: KEY
+                  secret: DRY_MSG                
                 - name: LAUNDRY_MSG
                   secret: LAUNDRY_MSG
                 - name: MQTT_HOST

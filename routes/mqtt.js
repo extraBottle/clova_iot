@@ -1,5 +1,6 @@
 const mqtt = require('mqtt');
 const axios = require('axios');
+const fs = require('fs')
 
 // --- 1. 접속 정보 설정 ---
 
@@ -20,9 +21,9 @@ function connect() {
     protocol: 'mqtts',
     
     // 3개의 인증 파일
-    key: process.env.KEY,
-    cert: process.env.CERT,
-    ca: process.env.CA,
+    key: fs.readFileSync('./my-client.key'),
+    cert: fs.readFileSync('./lg-client.csr'),
+    ca: fs.readFileSync('./AmazonRootCA1.pem'),
   };
 
   // --- 3. MQTT 서버 접속 ---
