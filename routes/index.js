@@ -2,8 +2,6 @@ const express = require('express');
 const axios = require('axios');
 const router = express.Router();
 
-require('dotenv').config();
-
 router.post('/', (req, res) => {
     const cmd = req.body.header.name;
     switch(cmd){

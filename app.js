@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+require('dotenv').config();
 const {SERVER_PORT} = require('./config.js');
 // request 처리하는 파일
 const routes = require('./routes/index.js');

@@ -1,8 +1,6 @@
 const mqtt = require('mqtt');
 const axios = require('axios');
 
-require('dotenv').config();
-
 // --- 1. 접속 정보 설정 ---
 
 // ❗️ API 응답에서 받은 'endpointAddress'
