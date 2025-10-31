@@ -63,11 +63,11 @@ function connect() {
       const data = JSON.parse(message);      
       const url = 'https://apis.naver.com/clovahome/clova-platform/sendNotification'
       let msgType = "";
-      if(data.push.pushCode === "WASHING_IS_COMPLETE"){
+      if(data.pushCode === "WASHING_IS_COMPLETE"){
         // 세탁기 완료
         msgType = process.env.LAUNDRY_MSG
       }
-      else if(data.push.pushCode === "DRYING_IS_COMPLETE"){
+      else if(data.pushCode === "DRYING_IS_COMPLETE"){
         // 건조기 완료
         msgType = process.env.DRY_MSG
       }
