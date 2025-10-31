@@ -29,9 +29,9 @@ jobs:
               ports: "1999"
               install: npm ci              
               start: |
-                echo "${{ secrets.KEY_B64 }}" | base64 --decode > ./my-client.key
-                echo "${{ secrets.CERT_B64 }}" | base64 --decode > ./lg-client.crt
-                echo "${{ secrets.CA_B64 }}" | base64 --decode > ./AmazonRootCA1.pem
+                echo "${{ secrets.KEY_B64 }}" | base64 --decode > ./my-client.key && \
+                echo "${{ secrets.CERT_B64 }}" | base64 --decode > ./lg-client.crt && \
+                echo "${{ secrets.CA_B64 }}" | base64 --decode > ./AmazonRootCA1.pem && \
                 node app.js
               env:
                 - name: BTC_MSG
