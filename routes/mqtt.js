@@ -63,13 +63,23 @@ function connect() {
       const data = JSON.parse(message);      
       const url = 'https://apis.naver.com/clovahome/clova-platform/sendNotification'
       let msgType = "";
-      if(data.pushCode === "WASHING_IS_COMPLETE"){
-        // 세탁기 완료
-        msgType = process.env.LAUNDRY_MSG
-      }
-      else if(data.pushCode === "DRYING_IS_COMPLETE"){
-        // 건조기 완료
-        msgType = process.env.DRY_MSG
+      switch(data.pushCode){
+        case "WASHING_IS_COMPLETE":
+          // 세탁기 완료
+          msgType = process.env.LAUNDRY_MSG;
+          break;
+        case "DRYING_IS_COMPLETE":
+          // 건조기 완료
+          msgType = process.env.DRY_MSG;
+          break;
+        case "TIME_TO_CLEAN_FILTER":
+          // 스틱청소기 필터 교체
+          msgType = process.env.CLEANER_MSG;
+          break;
+        case "WATER_IS_FULL":
+          // 에어컨 물이 가득 찼음
+          msgType = process.env.CONDITIONER_MSG;
+          break;        
       }
       if(msgType.length > 0){
         // 클로바에게 메시지 전달

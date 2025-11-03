@@ -58,6 +58,10 @@ jobs:
                   secret: SERVER_PORT
                 - name: DOMAIN
                   secret: DOMAIN
+                - name: CLEANER_MSG
+                  secret: CLEANER_MSG
+                - name: CONDITIONER_MSG
+                  secret: CONDITIONER_MSG
               buildenv: []
             context:
               git:
