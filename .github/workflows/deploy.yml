@@ -24,7 +24,7 @@ jobs:
           stage: main
           yaml: |
             name: clova-iot
-            app: node@23
+            app: node@24
             options:
               ports: "1999"
               install: npm ci              
