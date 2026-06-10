@@ -17,7 +17,7 @@ async function callGeminiAPI(input) {
 
   try {
     const response = await ai.interactions.create({
-      model: 'gemini-3.5-flash',
+      model: 'gemini-3.1-flash-lite',
       input: `[역할 및 미션]
             너는 인공지능 음성 비서야. 아래 제공되는 사용자의 질문에 대해 제약 조건을 반드시 지켜서 상냥하게 답변해줘.
 
