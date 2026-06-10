@@ -23,7 +23,7 @@ jobs:
           project: extra_bottle/my-project
           stage: main
           yaml: |
-            name: clova-iot-2
+            name: clova-iot
             app: node@23
             options:
               ports: "1999"
