@@ -79,7 +79,17 @@ function connect() {
         case "WATER_IS_FULL":
           // 에어컨 물이 가득 찼음
           msgType = process.env.CONDITIONER_MSG;
-          break;        
+          break;    
+        case "ERROR_DURING_WASHING":
+          // 세탁 중 오류 발생
+          msgType = process.env.LAUNDRY_ERROR_MSG;
+          break;    
+        case "DRYING_FAILED":
+          // 건조 중 오류 발생
+          msgType = process.env.DRY_ERROR_MSG;
+          break;    
+        default:
+          console.warn('알 수 없는 pushCode:', data.pushCode);    
       }
       if(msgType.length > 0){
         // 클로바에게 메시지 전달

@@ -9,7 +9,6 @@ router.post('/', async (req, res, next) => {
     try {
         const namespace = req.body.header ? req.body.header.namespace : null;
         const requestType = req.body.request ? req.body.request.type : null;
-        console.log('ddd: req.body', req.body);
 
         // 분기 1: 기존 클로바 홈(IoT 스마트홈) 요청인 경우
         if (namespace === 'ClovaHome') {
@@ -25,8 +24,7 @@ router.post('/', async (req, res, next) => {
         } 
         // 분기 2: 일반 대화형 Custom Extension 요청인 경우 (LaunchRequest, IntentRequest 등)
         else if (requestType || (namespace && namespace !== 'ClovaHome')) {
-            // 💡 gemini.js에서 구현한 익스포트 함수를 실행해 응답 처리를 위임합니다.
-            console.log("gemini here");
+            // 💡 gemini.js에서 구현한 익스포트 함수를 실행해 응답 처리를 위임합니다.            
             await geminiReq(req, res, next);
         } 
         else {
@@ -40,7 +38,7 @@ router.post('/', async (req, res, next) => {
 
 // 클로바 계정 연동(Account Linking) 유지용 더미 라우트들
 router.get('/login', function (req, res) {
-	console.log(req.query);
+	// console.log(req.query);
 	let url = decodeURIComponent(req.query.redirect_uri)+"?state="+req.query.state+"&code="+"FakeToken"+"&token_type=Bearer";
 	res.redirect(url);
 });

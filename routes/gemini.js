@@ -45,9 +45,9 @@ async function callGeminiAPI(input) {
 class CEKRequest {
   constructor (httpReq) {
     this.request = httpReq.body.request
-    this.context = httpReq.body.context
-    this.session = httpReq.body.session
-    console.log(`CEK Request: ${JSON.stringify(this.context)}, ${JSON.stringify(this.session)}`)
+    // this.context = httpReq.body.context
+    // this.session = httpReq.body.session
+    // console.log(`CEK Request: ${JSON.stringify(this.context)}, ${JSON.stringify(this.session)}`)
   }
 
   async do(cekResponse) {
@@ -62,7 +62,7 @@ class CEKRequest {
   }
 
   launchRequest(cekResponse) {
-    console.log('launchRequest')
+    // console.log('launchRequest')
     cekResponse.setSimpleSpeechText('안녕하세요 제미나이에요. 무엇을 도와드릴까요?')
     cekResponse.setMultiturn({
       intent: 'AskGeminiIntent',
@@ -70,8 +70,8 @@ class CEKRequest {
   }
 
   async intentRequest(cekResponse) {
-    console.log('intentRequest')
-    console.dir(this.request)
+    // console.log('intentRequest')
+    // console.dir(this.request)
     const intent = this.request.intent.name
     const slots = this.request.intent.slots
 
@@ -102,7 +102,7 @@ class CEKRequest {
   }
 
   sessionEndedRequest(cekResponse) {
-    console.log('sessionEndedRequest')
+    // console.log('sessionEndedRequest')
     cekResponse.setSimpleSpeechText('제미나이를 종료합니다.')
     cekResponse.clearMultiturn()
   }
@@ -110,7 +110,7 @@ class CEKRequest {
 
 class CEKResponse {
   constructor () {
-    console.log('CEKResponse constructor')
+    // console.log('CEKResponse constructor')
     this.response = {
       directives: [],
       shouldEndSession: true,
@@ -147,7 +147,7 @@ const geminiReq = async function (httpReq, httpRes, next) {
   const cekResponse = new CEKResponse()
   const cekRequest = new CEKRequest(httpReq)
   await cekRequest.do(cekResponse)
-  console.log(`CEKResponse: ${JSON.stringify(cekResponse)}`)
+  // console.log(`CEKResponse: ${JSON.stringify(cekResponse)}`)
   return httpRes.send(cekResponse)
 };
 

@@ -46,6 +46,10 @@ jobs:
                   secret: DRY_MSG                
                 - name: LAUNDRY_MSG
                   secret: LAUNDRY_MSG
+                - name: DRY_ERROR_MSG
+                  secret: DRY_ERROR_MSG
+                - name: LAUNDRY_ERROR_MSG
+                  secret: LAUNDRY_ERROR_MSG
                 - name: MQTT_HOST
                   secret: MQTT_HOST
                 - name: SUB_INBOX

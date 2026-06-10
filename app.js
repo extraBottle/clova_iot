@@ -14,12 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // 디버깅 용도.
-console.log('morgan');
 app.use(morgan('dev'));
 
 
 // routes/index.js에 모든 request 처리를 위임한다
-console.log('post /');
 app.use('/', routes);
 
 
