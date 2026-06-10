@@ -5,7 +5,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start": "echo \"$KEY_B64\" | base64 --decode > ./my-client.key && echo \"$CERT_B64\" | base64 --decode > ./lg-client.crt && echo \"$CA_B64\" | base64 --decode > ./AmazonRootCA1.pem; node app.js",
+    "start": "echo \"$KEY_B64\" | base64 --decode > ./my-client.key && echo \"$CERT_B64\" | base64 --decode > ./lg-client.crt && echo \"$CA_B64\" | base64 --decode > ./AmazonRootCA1.pem && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node app.js"
   },
