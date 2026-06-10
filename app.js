@@ -20,9 +20,6 @@ app.use(morgan('dev'));
 // routes/index.js에 모든 request 처리를 위임한다
 app.use('/', routes);
 
-// mqtt 서버 연결
-connectMqtt();
-
 
 // 사전 정의하지 않은 모든 endpoint를 여기서 404 오류 처리
 app.use((req, res, next) => {
@@ -41,4 +38,8 @@ app.use((err, req, res, next) => {
 
 app.listen(SERVER_PORT, () => {
   console.log(`Server is running on ${SERVER_PORT} port`);  
+
+  // 포트가 완전히 열린 후(클라우드타입 헬스체크 통과 후) MQTT 접속 시작
+  console.log('포트 개방 완료. 백그라운드에서 MQTT 연결을 진행합니다.');
+  connectMqtt();
 });
