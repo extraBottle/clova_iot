@@ -1,6 +1,6 @@
-const mqtt = require('mqtt');
-const axios = require('axios');
-const fs = require('fs')
+import mqtt from 'mqtt';
+import axios from 'axios';
+import fs from 'fs';
 
 // --- 1. 접속 정보 설정 ---
 
@@ -112,4 +112,4 @@ function connect() {
   // return client;
 }
 
-module.exports = { connect };
+export { connect };

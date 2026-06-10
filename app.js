@@ -1,11 +1,10 @@
-const express = require('express');
-const morgan = require('morgan');
-require('dotenv').config();
-const {SERVER_PORT} = require('./config.js');
-// request 처리하는 파일
-const routes = require('./routes/index.js');
-// mqtt 접속하는 파일
-const { connect: connectMqtt } = require('./routes/mqtt.js');
+import 'dotenv/config';
+import express from 'express';
+import morgan from 'morgan';
+
+import { SERVER_PORT } from './config.js';
+import routes from './routes/index.js';
+import { connect as connectMqtt } from './routes/mqtt.js';
 
 const app = express();
 

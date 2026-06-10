@@ -2,14 +2,17 @@
   "name": "clova_iot",
   "version": "1.0.0",
   "description": "클로바 프렌즈 스피커에 iot 기능을!",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "echo \"$KEY_B64\" | base64 --decode > ./my-client.key && echo \"$CERT_B64\" | base64 --decode > ./lg-client.crt && echo \"$CA_B64\" | base64 --decode > ./AmazonRootCA1.pem && node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^2.8.0",
     "axios": "^1.13.1",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",

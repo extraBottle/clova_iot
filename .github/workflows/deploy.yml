@@ -35,9 +35,7 @@ jobs:
                 - name: CERT_B64
                   secret: CERT_B64
                 - name: CA_B64
-                  secret: CA_B64
-                - name: BTC_MSG
-                  secret: BTC_MSG                
+                  secret: CA_B64                            
                 - name: CLIENT_ID
                   secret: CLIENT_ID
                 - name: CLOVA_ID
