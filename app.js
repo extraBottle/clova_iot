@@ -3,7 +3,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import { SERVER_PORT } from './config.js';
-import routes from './routes/index.js';
+// import routes from './routes/index.js';
 // import { connect as connectMqtt } from './routes/mqtt.js';
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 
 // routes/index.js에 모든 request 처리를 위임한다
 console.log('post /');
-app.use('/', routes);
+// app.use('/', routes);
 
 
 // 사전 정의하지 않은 모든 endpoint를 여기서 404 오류 처리
