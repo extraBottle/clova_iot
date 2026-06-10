@@ -45,8 +45,8 @@ app.listen(SERVER_PORT, () => {
   // 이렇게 하면 초기 구동 단계에서 무한 펜딩이 걸리는 현상을 100% 원천 차단합니다.
   try {
     console.log('📶 백그라운드에서 가전 연동 MQTT 모듈을 동적 로드합니다...');
-    const { connect: connectMqtt } = await import('./routes/mqtt.js');
-    connectMqtt();
+    // const { connect: connectMqtt } = await import('./routes/mqtt.js');
+    // connectMqtt();
   } catch (e) {
     console.error('⚠️ MQTT 동적 로딩 또는 실행 중 예외 발생:', e.message);
   }
