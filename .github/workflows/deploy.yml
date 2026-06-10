@@ -60,6 +60,8 @@ jobs:
                   secret: CLEANER_MSG
                 - name: CONDITIONER_MSG
                   secret: CONDITIONER_MSG
+                - name: GEMINI_API_KEY
+                  secret: GEMINI_API_KEY
               buildenv: []
             context:
               git:
