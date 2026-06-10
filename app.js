@@ -3,8 +3,8 @@ import express from 'express';
 import morgan from 'morgan';
 
 import { SERVER_PORT } from './config.js';
-// import routes from './routes/index.js';
-// import { connect as connectMqtt } from './routes/mqtt.js';
+import routes from './routes/index.js';
+import { connect as connectMqtt } from './routes/mqtt.js';
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use(morgan('dev'));
 
 // routes/index.js에 모든 request 처리를 위임한다
 console.log('post /');
-// app.use('/', routes);
+app.use('/', routes);
 
 
 // 사전 정의하지 않은 모든 endpoint를 여기서 404 오류 처리
@@ -44,9 +44,8 @@ app.listen(SERVER_PORT, () => {
   // 💡 포트가 완전히 열린 후, 백그라운드 영역에서 mqtt 모듈을 '동적(Dynamic)'으로 로드합니다.
   // 이렇게 하면 초기 구동 단계에서 무한 펜딩이 걸리는 현상을 100% 원천 차단합니다.
   try {
-    console.log('📶 백그라운드에서 가전 연동 MQTT 모듈을 동적 로드합니다...');
-    // const { connect: connectMqtt } = await import('./routes/mqtt.js');
-    // connectMqtt();
+    console.log('📶 백그라운드에서 가전 연동 MQTT 모듈을 동적 로드합니다...');    
+    connectMqtt();
   } catch (e) {
     console.error('⚠️ MQTT 동적 로딩 또는 실행 중 예외 발생:', e.message);
   }

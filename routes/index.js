@@ -1,6 +1,6 @@
 import express from 'express';
 import axios from 'axios';
-// import geminiReq from './gemini.js';
+import geminiReq from './gemini.js';
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
         else if (requestType || (namespace && namespace !== 'ClovaHome')) {
             // 💡 gemini.js에서 구현한 익스포트 함수를 실행해 응답 처리를 위임합니다.
             console.log("gemini here");
-            // await geminiReq(req, res, next);
+            await geminiReq(req, res, next);
         } 
         else {
             res.sendStatus(400);

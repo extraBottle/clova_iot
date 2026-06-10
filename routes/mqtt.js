@@ -21,7 +21,7 @@ function connect() {
     protocol: 'mqtts',
     
     // 3개의 인증 파일
-    key: fs.readFileSync('./lg-client.key'),
+    key: fs.readFileSync('./my-client.key'),
     cert: fs.readFileSync('./lg-client.crt'),
     ca: fs.readFileSync('./AmazonRootCA1.pem')    
   };
