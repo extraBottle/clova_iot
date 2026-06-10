@@ -1,6 +1,6 @@
 import express from 'express';
 import axios from 'axios';
-import geminiReq from './gemini.js';
+// import geminiReq from './gemini.js';
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.post('/', async (req, res, next) => {
     try {
         const namespace = req.body.header ? req.body.header.namespace : null;
         const requestType = req.body.request ? req.body.request.type : null;
+        console.log('ddd: req.body', req.body);
 
         // 분기 1: 기존 클로바 홈(IoT 스마트홈) 요청인 경우
         if (namespace === 'ClovaHome') {
@@ -25,7 +26,8 @@ router.post('/', async (req, res, next) => {
         // 분기 2: 일반 대화형 Custom Extension 요청인 경우 (LaunchRequest, IntentRequest 등)
         else if (requestType || (namespace && namespace !== 'ClovaHome')) {
             // 💡 gemini.js에서 구현한 익스포트 함수를 실행해 응답 처리를 위임합니다.
-            await geminiReq(req, res, next);
+            console.log("gemini here");
+            // await geminiReq(req, res, next);
         } 
         else {
             res.sendStatus(400);
