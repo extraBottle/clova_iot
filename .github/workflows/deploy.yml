@@ -63,6 +63,10 @@ jobs:
                   secret: CONDITIONER_MSG
                 - name: GEMINI_API_KEY
                   secret: GEMINI_API_KEY
+                - name: LG_THINQ_PAT
+                  secret: LG_THINQ_PAT
+                - name: AIR_CON_DEVICE_ID
+                  secret: AIR_CON_DEVICE_ID
               buildenv: []
             context:
               git:
