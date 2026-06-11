@@ -42,15 +42,11 @@ jobs:
                 - name: CLOVA_ID
                   secret: CLOVA_ID
                 - name: CLOVA_SECRET
-                  secret: CLOVA_SECRET
-                - name: DRY_MSG
-                  secret: DRY_MSG                
-                - name: LAUNDRY_MSG
-                  secret: LAUNDRY_MSG
-                - name: DRY_ERROR_MSG
-                  secret: DRY_ERROR_MSG
-                - name: LAUNDRY_ERROR_MSG
-                  secret: LAUNDRY_ERROR_MSG
+                  secret: CLOVA_SECRET                
+                - name: FINISH_MSG
+                  secret: FINISH_MSG
+                - name: ERROR_MSG
+                  secret: ERROR_MSG                
                 - name: MQTT_HOST
                   secret: MQTT_HOST
                 - name: SUB_INBOX

@@ -1,5 +1,6 @@
 import express from 'express';
 import axios from 'axios';
+import { DiscoverAppliancesResponse, TurnOnResponse } from './mqtt.js';
 import geminiReq from './gemini.js';
 
 const router = express.Router();
@@ -15,7 +16,12 @@ router.post('/', async (req, res, next) => {
             const cmd = req.body.header.name;
             switch(cmd){
                 case 'DiscoverAppliancesRequest':
-                    DiscoverAppliancesRequest(req, res);
+                    // 서비스 첫 가동
+                    DiscoverAppliancesResponse(req, res);
+                    break;
+                case 'TurnOnRequest':
+                    // 에어컨 켜기
+                    TurnOnResponse(req, res);
                     break;
                 default:
                     res.sendStatus(403);
@@ -50,34 +56,5 @@ router.post('/token',function(req,res){
   }
   `);
 });
-
-// 가전 목록 탐색 응답 (스마트홈 규격상 기기가 최소 1개 등록되어 있어야 서비스가 활성화됨)
-function DiscoverAppliancesRequest(req, res) {
-	let messageId = req.body.header.messageId;
-	let resultObject = {
-        header: {
-            messageId: messageId,
-            name: "DiscoverAppliancesResponse",
-            namespace: "ClovaHome",
-            payloadVersion: "1.0"
-        },
-        payload: {
-            discoveredAppliances: [
-                {
-                    applianceId: "device-001",
-                    manufacturerName: "제조사",
-                    modelName: "thinq-bridge",
-                    friendlyName: "스마트 가전 브릿지",
-                    version: "1.0.0",
-                    isIr: false,
-                    actions: ["TurnOn", "TurnOff"],
-                    applianceTypes: ["LIGHT"] // 클로바가 인식 가능한 기본 타입 유지
-                }
-            ]
-        }
-    };
-
-	res.send(resultObject);
-}
 
 export default router;

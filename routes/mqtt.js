@@ -1,4 +1,5 @@
 import mqtt from 'mqtt';
+import crypto from 'crypto';
 import axios from 'axios';
 import fs from 'fs';
 
@@ -10,6 +11,89 @@ const MQTT_HOST = process.env.MQTT_HOST;
 // ❗️ API 응답에서 받은 'subscriptions'
 const TOPIC_TO_PUSH = process.env.SUB_PUSH;
 const TOPIC_TO_INBOX = process.env.SUB_INBOX;
+
+// 가전 목록 탐색 응답 (스마트홈 규격상 기기가 최소 1개 등록되어 있어야 서비스가 활성화됨)
+function DiscoverAppliancesResponse(req, res) {
+	let messageId = req.body.header.messageId;
+	let resultObject = {
+    header: {
+        messageId: messageId,
+        name: "DiscoverAppliancesResponse",
+        namespace: "ClovaHome",
+        payloadVersion: "1.0"
+    },
+    payload: {
+      discoveredAppliances: [
+          {
+              applianceId: "dry-001",
+              manufacturerName: "제조사",
+              modelName: "dry",
+              friendlyName: "의류건조기",
+              version: "1.0.0",
+              isIr: false,
+              actions: ["HealthCheck"],
+              applianceTypes: ["CLOTHESDRYER"]
+          },
+          {
+              applianceId: "laundry-001",
+              manufacturerName: "제조사",
+              modelName: "laundry",
+              friendlyName: "세탁기",
+              version: "1.0.0",
+              isIr: false,
+              actions: ["HealthCheck"],
+              applianceTypes: ["CLOTHESWASHER"]
+          },
+          {
+              applianceId: "aircon-001",
+              manufacturerName: "제조사",
+              modelName: "aircon",
+              friendlyName: "에어컨",
+              version: "1.0.0",
+              isIr: false,
+              actions: ["TurnOn"],
+              applianceTypes: ["AIRCONDITIONER"]
+          }
+      ]
+    }
+  };
+
+	res.send(resultObject);
+}
+
+// 에어컨 켜기
+async function TurnOnResponse(req, res) {
+	let messageId = req.body.header.messageId;
+	let resultObject = {
+    header: {
+        messageId: messageId,
+        name: "TurnOnConfirmation",
+        namespace: "ClovaHome",
+        payloadVersion: "1.0"
+    },
+    payload: {}
+  };
+  const url = `https://api-kic.lgthinq.com/devices/${process.env.AIR_CON_DEVICE_ID}/control`;
+  const body = {
+    "operation": {
+      "airConOperationMode": "POWER_ON"
+    }
+  };
+  const header = {
+    headers: {
+      'Authorization': `Bearer ${process.env.LG_THINQ_PAT}`,
+      'x-message-id': crypto.randomUUID(),
+      'x-country': 'KR',
+      'x-client-id': process.env.CLIENT_ID,
+      'x-api-key': "v6GFvkweNo7DK7yD3ylIZ9w52aKBU0eJ7wLXkSR3",
+      'x-conditional-control': "false"
+    }
+  };
+
+  console.log(`🚀 에어컨 켜기를 시도합니다...`);
+  const response = await axios.post(url, body, header);
+	res.send(resultObject);
+}
 
 // mqtt 접속
 function connect() {
@@ -63,15 +147,28 @@ function connect() {
       const data = JSON.parse(message);      
       const url = 'https://apis.naver.com/clovahome/clova-platform/sendNotification'
       let msgType = "";
+      let applianceId = "dry-001";
       switch(data.pushCode){
         case "WASHING_IS_COMPLETE":
           // 세탁기 완료
-          msgType = process.env.LAUNDRY_MSG;
+          applianceId = "laundry-001";
+          msgType = process.env.FINISH_MSG;
           break;
+        case "ERROR_DURING_WASHING":
+          // 세탁기 오류
+          applianceId = "laundry-001";
+          msgType = process.env.ERROR_MSG;
+          break;     
         case "DRYING_IS_COMPLETE":
           // 건조기 완료
-          msgType = process.env.DRY_MSG;
-          break;
+          applianceId = "dry-001";
+          msgType = process.env.FINISH_MSG;
+          break;         
+        case "DRYING_FAILED":
+          // 건조기 오류
+          applianceId = "dry-001";
+          msgType = process.env.ERROR_MSG;
+          break;   
         case "TIME_TO_CLEAN_FILTER":
           // 스틱청소기 필터 교체
           msgType = process.env.CLEANER_MSG;
@@ -79,15 +176,7 @@ function connect() {
         case "WATER_IS_FULL":
           // 에어컨 물이 가득 찼음
           msgType = process.env.CONDITIONER_MSG;
-          break;    
-        case "ERROR_DURING_WASHING":
-          // 세탁 중 오류 발생
-          msgType = process.env.LAUNDRY_ERROR_MSG;
-          break;    
-        case "DRYING_FAILED":
-          // 건조 중 오류 발생
-          msgType = process.env.DRY_ERROR_MSG;
-          break;    
+          break;     
         default:
           console.warn('알 수 없는 pushCode:', data.pushCode);    
       }
@@ -100,7 +189,7 @@ function connect() {
           }
         }
         const body = {
-          'applianceId': 'device-001',
+          'applianceId': applianceId,
           'messageId': msgType
         }
         await axios.post(url, body, header);
@@ -122,4 +211,4 @@ function connect() {
   // return client;
 }
 
-export { connect };
+export { DiscoverAppliancesResponse, TurnOnResponse, connect };
