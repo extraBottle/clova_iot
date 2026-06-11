@@ -90,7 +90,6 @@ async function TurnOnResponse(req, res) {
     }
   };
 
-  console.log(`🚀 에어컨 켜기를 시도합니다...`);
   const response = await axios.post(url, body, header);
 	res.send(resultObject);
 }

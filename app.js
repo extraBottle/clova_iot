@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import express from 'express';
-import morgan from 'morgan';
 
 import { SERVER_PORT } from './config.js';
 import routes from './routes/index.js';
@@ -11,10 +10,6 @@ const app = express();
 // parser. Express가 알아먹기 쉽게함
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-// 디버깅 용도.
-app.use(morgan('dev'));
 
 
 // routes/index.js에 모든 request 처리를 위임한다
