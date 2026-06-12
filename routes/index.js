@@ -13,6 +13,9 @@ router.post('/', async (req, res, next) => {
 
         // 분기 1: 기존 클로바 홈(IoT 스마트홈) 요청인 경우
         if (namespace === 'ClovaHome') {
+            if (req.body && req.body.header) {
+               console.log(`📡 [CLOVA INCOMING] Namespace: ${req.body.header.namespace}, Name: ${req.body.header.name}`);
+            }
             const cmd = req.body.header.name;
             switch(cmd){
                 case 'DiscoverAppliancesRequest':
