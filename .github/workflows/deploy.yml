@@ -32,11 +32,11 @@ jobs:
               start: npm start
               env:
                 - name: KEY_B64
-                  secret: KEY_B64 
+                  value: '${{ secrets.KEY_B64 }}'
                 - name: CERT_B64
-                  secret: CERT_B64
+                  value: '${{ secrets.CERT_B64 }}'
                 - name: CA_B64
-                  secret: CA_B64                            
+                  value: '${{ secrets.CA_B64 }}'
                 - name: CLIENT_ID
                   secret: CLIENT_ID
                 - name: CLOVA_ID
@@ -64,7 +64,7 @@ jobs:
                 - name: GEMINI_API_KEY
                   secret: GEMINI_API_KEY
                 - name: LG_THINQ_PAT
-                  secret: LG_THINQ_PAT
+                  value: '${{ secrets.LG_THINQ_PAT }}'
                 - name: AIR_CON_DEVICE_ID
                   secret: AIR_CON_DEVICE_ID
               buildenv: []

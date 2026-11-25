@@ -1,7 +1,7 @@
 import mqtt from 'mqtt';
 import crypto from 'crypto';
 import axios from 'axios';
-import fs from 'fs';
+import { loadMqttTls } from '../lib/mqtt-tls.js';
 
 // --- 1. 접속 정보 설정 ---
 
@@ -103,10 +103,7 @@ function connect() {
     port: 8883,
     protocol: 'mqtts',
     
-    // 3개의 인증 파일
-    key: fs.readFileSync('./my-client.key'),
-    cert: fs.readFileSync('./lg-client.crt'),
-    ca: fs.readFileSync('./AmazonRootCA1.pem')    
+    ...loadMqttTls()
   };
 
   // --- 3. MQTT 서버 접속 ---
