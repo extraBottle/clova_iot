@@ -27,41 +27,41 @@ jobs:
               start: npm start
               env:
                 - name: KEY_B64
-                  value: '${{ secrets.KEY_B64 }}'
+                  value: ${{ toJSON(secrets.KEY_B64) }}
                 - name: CERT_B64
-                  value: '${{ secrets.CERT_B64 }}'
+                  value: ${{ toJSON(secrets.CERT_B64) }}
                 - name: CA_B64
-                  value: '${{ secrets.CA_B64 }}'
+                  value: ${{ toJSON(secrets.CA_B64) }}
                 - name: CLIENT_ID
-                  secret: CLIENT_ID
+                  value: ${{ toJSON(secrets.CLIENT_ID) }}
                 - name: CLOVA_ID
-                  secret: CLOVA_ID
+                  value: ${{ toJSON(secrets.CLOVA_ID) }}
                 - name: CLOVA_SECRET
-                  secret: CLOVA_SECRET                
+                  value: ${{ toJSON(secrets.CLOVA_SECRET) }}
                 - name: FINISH_MSG
-                  secret: FINISH_MSG
+                  value: ${{ toJSON(secrets.FINISH_MSG) }}
                 - name: ERROR_MSG
-                  secret: ERROR_MSG                
+                  value: ${{ toJSON(secrets.ERROR_MSG) }}
                 - name: MQTT_HOST
-                  secret: MQTT_HOST
+                  value: ${{ toJSON(secrets.MQTT_HOST) }}
                 - name: SUB_INBOX
-                  secret: SUB_INBOX
+                  value: ${{ toJSON(secrets.SUB_INBOX) }}
                 - name: SUB_PUSH
-                  secret: SUB_PUSH
+                  value: ${{ toJSON(secrets.SUB_PUSH) }}
                 - name: SERVER_PORT
-                  secret: SERVER_PORT
+                  value: ${{ toJSON(secrets.SERVER_PORT) }}
                 - name: DOMAIN
-                  secret: DOMAIN
+                  value: ${{ toJSON(secrets.DOMAIN) }}
                 - name: CLEANER_MSG
-                  secret: CLEANER_MSG
+                  value: ${{ toJSON(secrets.CLEANER_MSG) }}
                 - name: CONDITIONER_MSG
-                  secret: CONDITIONER_MSG
+                  value: ${{ toJSON(secrets.CONDITIONER_MSG) }}
                 - name: GEMINI_API_KEY
-                  secret: GEMINI_API_KEY
+                  value: ${{ toJSON(secrets.GEMINI_API_KEY) }}
                 - name: LG_THINQ_PAT
-                  value: '${{ secrets.LG_THINQ_PAT }}'
+                  value: ${{ toJSON(secrets.LG_THINQ_PAT) }}
                 - name: AIR_CON_DEVICE_ID
-                  secret: AIR_CON_DEVICE_ID
+                  value: ${{ toJSON(secrets.AIR_CON_DEVICE_ID) }}
               buildenv: []
             context:
               git:

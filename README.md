@@ -4,7 +4,9 @@
 
 ## MQTT 인증서 및 배포 설정
 
-GitHub Actions Secrets의 `KEY_B64`, `CERT_B64`, `CA_B64`, `LG_THINQ_PAT`를 Cloudtype 실행 환경으로 전달합니다. 나머지 환경변수는 기존 Cloudtype 시크릿을 계속 사용합니다. 이 네 값은 GitHub Secret 등록과 변경된 workflow 배포가 모두 필요합니다.
+모든 서비스 환경변수를 같은 이름의 GitHub Actions Secrets에서 Cloudtype 실행 환경으로 전달합니다. Cloudtype 시크릿 참조는 사용하지 않습니다. 문자열은 `toJSON`으로 직렬화해 따옴표·줄바꿈·특수문자가 배포 YAML을 깨뜨리지 않도록 합니다. GitHub Secret 변경 후 재배포해야 적용됩니다.
+
+필요한 서비스 Secrets: `KEY_B64`, `CERT_B64`, `CA_B64`, `CLIENT_ID`, `CLOVA_ID`, `CLOVA_SECRET`, `FINISH_MSG`, `ERROR_MSG`, `MQTT_HOST`, `SUB_INBOX`, `SUB_PUSH`, `SERVER_PORT`, `DOMAIN`, `CLEANER_MSG`, `CONDITIONER_MSG`, `GEMINI_API_KEY`, `LG_THINQ_PAT`, `AIR_CON_DEVICE_ID`. 배포 인증용 `CLOUDTYPE_TOKEN`도 필요합니다. 이미 교체한 Deploy Key를 사용하므로 connect 액션은 실행하지 않습니다.
 
 PEM 파일 전체를 한 번만 Base64로 인코딩한 한 줄 값을 저장하세요. 개인키와 클라이언트 인증서는 같은 쌍이어야 합니다. `npm start`는 메모리에서 복원한 뒤 형식, 키 일치 및 인증서 유효기간을 검사하고 서버를 시작합니다. 실제 TLS 서버 검증은 MQTT 연결 시 수행하며 비활성화하지 않습니다. 개인키를 작업 폴더에 다시 쓰거나 로그로 출력하지 않습니다.
 
