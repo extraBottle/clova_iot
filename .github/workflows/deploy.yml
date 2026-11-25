@@ -12,36 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Diagnose Cloudtype API access
-        env:
-          CLOUDTYPE_TOKEN: ${{ secrets.CLOUDTYPE_TOKEN }}
-        run: |
-          node --input-type=module <<'JS'
-          const token = process.env.CLOUDTYPE_TOKEN;
-          if (!token) { console.error('CLOUDTYPE_TOKEN is missing'); process.exit(1); }
-          console.log('CLOUDTYPE_TOKEN present; outer whitespace: ' + (token !== token.trim()));
-          for (const scope of ['$user', 'extra_bottle']) {
-            const url = `https://api.cloudtype.io/scope/${scope}/deploykey?url=${encodeURIComponent('git@github.com:extraBottle/clova_iot.git')}`;
-            try {
-              const response = await fetch(url, {
-                headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-                signal: AbortSignal.timeout(20000)
-              });
-              console.log(`Cloudtype direct GET scope=${scope}: HTTP ${response.status}`);
-              // Never log response contents: a successful response contains deploy key metadata.
-              await response.body?.cancel();
-            } catch {
-              console.log(`Cloudtype direct GET scope=${scope}: network or request error`);
-            }
-          }
-          JS
-      - name: Connect deploy key
-        uses: cloudtype-github-actions/connect@v1
-        with:
-          token: ${{ secrets.CLOUDTYPE_TOKEN }}
-          ghtoken: ${{ secrets.GHP_TOKEN }}
-          scope: extra_bottle
-          readOnly: 'true'
       - name: Deploy
         uses: cloudtype-github-actions/deploy@v1
         with:
